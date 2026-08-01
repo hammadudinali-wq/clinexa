@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { 
   FileText, Calendar, User, Stethoscope, 
   Heart, LogOut, ArrowLeft, Search, 
-  Clock, AlertCircle, CheckCircle 
+  Clock, CheckCircle 
 } from "lucide-react";
 
 export default function PatientMedicalRecordsPage() {
@@ -54,15 +54,6 @@ export default function PatientMedicalRecordsPage() {
     } finally {
       setLoading(false);
     }
-  };
-
-  const getStatusBadge = (status: string) => {
-    const statusMap: { [key: string]: { color: string; icon: JSX.Element } } = {
-      active: { color: "bg-green-100 text-green-700", icon: <CheckCircle className="w-4 h-4" /> },
-      resolved: { color: "bg-blue-100 text-blue-700", icon: <CheckCircle className="w-4 h-4" /> },
-      pending: { color: "bg-amber-100 text-amber-700", icon: <Clock className="w-4 h-4" /> },
-    };
-    return statusMap[status] || statusMap.pending;
   };
 
   const filteredRecords = records.filter((r) =>
@@ -144,7 +135,6 @@ export default function PatientMedicalRecordsPage() {
             <FileText className="w-16 h-16 text-gray-300 mx-auto mb-4" />
             <h3 className="text-xl font-semibold text-gray-700">No Medical Records</h3>
             <p className="text-gray-500 mt-2">You don't have any medical records yet.</p>
-            <p className="text-gray-400 text-sm mt-1">Records will appear here after your appointments</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 gap-4">
@@ -181,12 +171,6 @@ export default function PatientMedicalRecordsPage() {
                         <span className="font-medium">Notes:</span> {record.notes}
                       </p>
                     )}
-                  </div>
-                  <div className="flex flex-col items-end gap-2">
-                    <span className={`flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium ${getStatusBadge("active").color}`}>
-                      {getStatusBadge("active").icon}
-                      Active
-                    </span>
                   </div>
                 </div>
               </div>

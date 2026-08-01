@@ -201,9 +201,9 @@ export default function DoctorDashboardPage() {
   );
 }
 
-// ---------- Stat Card ----------
+// ---------- Stat Card (Fixed) ----------
 function StatCard({ icon, label, value, color }: any) {
-  const colors = {
+  const colors: Record<string, string> = {
     blue: "bg-blue-50 border-blue-100/50",
     green: "bg-green-50 border-green-100/50",
     purple: "bg-purple-50 border-purple-100/50",

@@ -92,7 +92,11 @@ export default function AdminPatientsPage() {
 
       const data = await res.json();
       if (data.success) {
-        fetchPatients(token);
+        // ✅ Fix: Check token before calling fetchPatients
+        const newToken = localStorage.getItem("token");
+        if (newToken) {
+          fetchPatients(newToken);
+        }
         setShowModal(false);
         setEditingPatient(null);
         setFormData({

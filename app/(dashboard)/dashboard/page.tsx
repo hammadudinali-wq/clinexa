@@ -174,9 +174,9 @@ export default function DashboardPage() {
   );
 }
 
-// ---------- Stat Card ----------
+// ---------- Stat Card (Fixed) ----------
 function StatCard({ icon, label, value, change, color }: any) {
-  const colors = {
+  const colors: Record<string, string> = {
     blue: "bg-blue-50 border-blue-100/50",
     amber: "bg-amber-50 border-amber-100/50",
     emerald: "bg-emerald-50 border-emerald-100/50",
@@ -199,7 +199,7 @@ function StatCard({ icon, label, value, change, color }: any) {
 
 // ---------- Quick Action ----------
 function QuickAction({ title, description, icon, color }: any) {
-  const colors = {
+  const colors: Record<string, string> = {
     purple: "bg-purple-50 hover:bg-purple-100",
     blue: "bg-blue-50 hover:bg-blue-100",
     emerald: "bg-emerald-50 hover:bg-emerald-100",

@@ -6,11 +6,8 @@ import { useRouter } from "next/navigation";
 import {
   Heart, Stethoscope, Users, Calendar, 
   DollarSign, Activity, ArrowRight, 
-  Shield, Clock, Star, Phone, Mail,
-  Menu, X, Sparkles, CheckCircle, 
-  Award, TrendingUp, UserPlus, 
-  Pill, FileText, MessageCircle, 
-  Globe, Lock, Zap, Headphones
+  Shield, Clock, Star, Sparkles, CheckCircle,
+  Menu, X
 } from "lucide-react";
 
 export default function LandingPage() {
@@ -358,7 +355,7 @@ export default function LandingPage() {
 
 // ---------- Feature Card ----------
 function FeatureCard({ icon, title, description, color }: any) {
-  const colors = {
+  const colors: Record<string, string> = {
     blue: "bg-blue-50 hover:bg-blue-100",
     emerald: "bg-emerald-50 hover:bg-emerald-100",
     purple: "bg-purple-50 hover:bg-purple-100",

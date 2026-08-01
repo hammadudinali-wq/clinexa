@@ -91,7 +91,11 @@ export default function AdminDoctorsPage() {
 
       const data = await res.json();
       if (data.success) {
-        fetchDoctors(token);
+        // ✅ Fix: Check token before calling fetchDoctors
+        const newToken = localStorage.getItem("token");
+        if (newToken) {
+          fetchDoctors(newToken);
+        }
         setShowModal(false);
         setEditingDoctor(null);
         setFormData({

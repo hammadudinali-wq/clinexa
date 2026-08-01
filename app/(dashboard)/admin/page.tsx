@@ -36,7 +36,6 @@ export default function AdminDashboardPage() {
     if (userData) {
       try {
         const parsed = JSON.parse(userData);
-        // ✅ Role check: Agar admin nahi hai toh redirect
         if (parsed.role !== "admin") {
           router.push(`/${parsed.role}`);
           return;
@@ -225,9 +224,9 @@ export default function AdminDashboardPage() {
   );
 }
 
-// ---------- Stat Card ----------
+// ---------- Stat Card (Fixed) ----------
 function StatCard({ icon, label, value, color }: any) {
-  const colors = {
+  const colors: Record<string, string> = {
     blue: "bg-blue-50 border-blue-100/50",
     emerald: "bg-emerald-50 border-emerald-100/50",
     purple: "bg-purple-50 border-purple-100/50",

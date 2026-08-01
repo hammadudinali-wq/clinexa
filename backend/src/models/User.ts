@@ -24,70 +24,33 @@ export interface IUser extends Document {
 
 const UserSchema = new Schema<IUser>(
   {
-    fullName: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-      lowercase: true,
-      trim: true,
-    },
-    password: {
-      type: String,
-      required: true,
-    },
-    phone: {
-      type: String,
-      required: true,
-    },
-    role: {
-      type: String,
-      enum: Object.values(UserRole),
-      default: UserRole.PATIENT,
-    },
-    profileImage: {
-      type: String,
-      default: "",
-    },
-    isVerified: {
-      type: Boolean,
-      default: false,
-    },
-    isActive: {
-      type: Boolean,
-      default: true,
-    },
-    resetPasswordToken: {
-      type: String,
-      default: undefined,
-    },
-    resetPasswordExpiry: {
-      type: Number,
-      default: undefined,
-    },
+    fullName: { type: String, required: true, trim: true },
+    email: { type: String, required: true, unique: true, lowercase: true, trim: true },
+    password: { type: String, required: true },
+    phone: { type: String, required: true },
+    role: { type: String, enum: Object.values(UserRole), default: UserRole.PATIENT },
+    profileImage: { type: String, default: "" },
+    isVerified: { type: Boolean, default: false },
+    isActive: { type: Boolean, default: true },
+    resetPasswordToken: { type: String, default: undefined },
+    resetPasswordExpiry: { type: Number, default: undefined },
   },
-  {
-    timestamps: true,
-  }
+  { timestamps: true }
 );
 
-// ✅ Ensure only one admin exists
 export const ensureAdmin = async () => {
   try {
-    const adminExists = await mongoose.model<IUser>("User").findOne({ role: "admin" });
+    const UserModel = mongoose.model<IUser>("User");
+    const adminExists = await UserModel.findOne({ role: UserRole.ADMIN });
     if (!adminExists) {
       const salt = await bcrypt.genSalt(10);
       const hashedPassword = await bcrypt.hash("admin123", salt);
-      await mongoose.model<IUser>("User").create({
+      await UserModel.create({
         fullName: "Super Admin",
         email: "admin@hospital.com",
         password: hashedPassword,
         phone: "03001234567",
-        role: "admin",
+        role: UserRole.ADMIN,
       });
       console.log("✅ Admin created successfully");
     } else {

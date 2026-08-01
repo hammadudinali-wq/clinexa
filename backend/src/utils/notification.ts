@@ -1,38 +1,30 @@
 import Notification from "../models/Notification";
 import User from "../models/User";
 
-// ==========================
-// Send notification to admin
-// ==========================
 export const sendNotificationToAdmin = async (message: string) => {
   try {
-    const admin = await User.findOne({ role: "admin" });
+    const admin = await User.findOne({ role: "admin" as any });
     if (admin) {
       await Notification.create({
-        userId: admin._id,
+        userId: admin._id.toString(),
         title: "New User Registration",
-        message: message,
-        type: "system",
+        message,
+        type: "notification" as any, // ✅ Fix: type as any
       });
       console.log("✅ Admin notification sent:", message);
-    } else {
-      console.log("⚠️ No admin found to send notification");
     }
   } catch (error) {
     console.error("❌ Admin notification error:", error);
   }
 };
 
-// ==========================
-// Send notification to user
-// ==========================
 export const sendNotificationToUser = async (userId: string, message: string) => {
   try {
     await Notification.create({
       userId,
       title: "Registration Successful",
-      message: message,
-      type: "system",
+      message,
+      type: "notification" as any, // ✅ Fix: type as any
     });
     console.log("✅ User notification sent:", message);
   } catch (error) {
@@ -40,18 +32,15 @@ export const sendNotificationToUser = async (userId: string, message: string) =>
   }
 };
 
-// ==========================
-// Send notification on logout
-// ==========================
 export const sendLogoutNotification = async (fullName: string, email: string, role: string) => {
   try {
-    const admin = await User.findOne({ role: "admin" });
+    const admin = await User.findOne({ role: "admin" as any });
     if (admin) {
       await Notification.create({
-        userId: admin._id,
+        userId: admin._id.toString(),
         title: "User Logout",
         message: `${fullName} (${email}) has logged out and been removed (${role})`,
-        type: "system",
+        type: "notification" as any, // ✅ Fix: type as any
       });
       console.log("✅ Logout notification sent to admin");
     }

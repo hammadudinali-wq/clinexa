@@ -40,7 +40,7 @@ export default function DoctorAppointmentsPage() {
   };
 
   const getStatusBadge = (status: string) => {
-    const statusMap: { [key: string]: { color: string; icon: JSX.Element } } = {
+    const statusMap: Record<string, { color: string; icon: React.ReactNode }> = {
       pending: { color: "bg-amber-100 text-amber-700", icon: <ClockIcon className="w-4 h-4" /> },
       confirmed: { color: "bg-blue-100 text-blue-700", icon: <CheckCircle className="w-4 h-4" /> },
       completed: { color: "bg-green-100 text-green-700", icon: <CheckCircle className="w-4 h-4" /> },
